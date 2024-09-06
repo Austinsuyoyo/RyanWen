@@ -206,7 +206,7 @@ $(document).ready(function () {
               applyAnimationsSequentially();
             }
           },
-          offset: "90%",
+          offset: "120%",
         });
       });
     }
@@ -460,7 +460,7 @@ $(document).ready(function () {
 // 07. COUNTDOWN
 //===================================================================================
 function handleTickInit(tick) {
-  var counter = Tick.count.down("2024-01-07T12:00:00+08:00", { format: ["d", "h", "m", "s"] });
+  var counter = Tick.count.down("2024-11-30T12:00:00+08:00", { format: ["d", "h", "m", "s"] });
 
   counter.onupdate = function (value) {
     tick.value = value;
