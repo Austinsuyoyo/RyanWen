@@ -527,7 +527,9 @@ a:hover {
     transform: scale(1.1);
 }
 .css-logo-text {
-    font-size: 13px;
+    font-family: 'pacificoregular';
+    font-weight: 100;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -535,7 +537,7 @@ a:hover {
 }
 .css-logo-text > i {
     font-size: 10px;
-    margin: 5px 0;
+    margin: 4px 0;
 }
 .css-logo-heart {
     color: #ffffff;
