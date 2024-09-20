@@ -408,53 +408,6 @@ $(document).ready(function () {
       }
     }
   });
-  // Confetti Setting
-  //----------------------------------------------------------------------------------
-
-  // 效果2 - 滾動時觸發
-  // 變數，用於追踪上一個滾動位置
-  var lastScrollPosition = 0;
-
-  // 變數，用於標記是否可以觸發confetti
-  var canTriggerConfetti = true;
-
-  // 註冊滾動事件監聽器
-  window.addEventListener("scroll", function () {
-    // 獲取當前滾動位置
-    var currentScrollPosition = window.scrollY || window.pageYOffset;
-
-    // 判斷是否在持續滑動
-    if (currentScrollPosition !== lastScrollPosition) {
-      // 更新上一個滾動位置
-      lastScrollPosition = currentScrollPosition;
-      // 判斷是否可以觸發 confetti
-      if (canTriggerConfetti) {
-        // 觸發 confetti
-        if (device.tablet() || device.mobile()) {
-          confetti({
-            angle: Math.random() * 70 + 55,
-            particleCount: Math.random() * 50 + 30,
-            startVelocity: 30,
-            spread: Math.random() * 20 + 50,
-            origin: { y: 0.5 },
-          });
-        } else {
-          confetti({
-            particleCount: 200,
-            startVelocity: 25,
-            spread: 360,
-            origin: { x: Math.random() * 0.7 + 0.15, y: Math.random() * 0.5 },
-          });
-        }
-
-        // 設定一秒後再次可以觸發 confetti
-        canTriggerConfetti = false;
-        setTimeout(function () {
-          canTriggerConfetti = true;
-        }, 5000);
-      }
-    }
-  });
 });
 
 // 07. COUNTDOWN
@@ -465,15 +418,4 @@ function handleTickInit(tick) {
   counter.onupdate = function (value) {
     tick.value = value;
   };
-
-  //counter.onended = function () {
-  // redirect, uncomment the next line
-  // window.location = 'my-location.html'
-
-  // hide counter, uncomment the next line
-  // tick.root.style.display = 'none';
-
-  // show message, uncomment the next line
-  // document.querySelector('.tick-onended-message').style.display = '';
-  //};
 }
