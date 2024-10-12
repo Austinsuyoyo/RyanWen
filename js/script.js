@@ -110,7 +110,7 @@ $(document).ready(function () {
   // 04. PACE PRELOADER
   //==================================================================================
   Pace.on("done", function () {
-    $("#preloader").hide();
+    $("#preloader").delay(500).fadeOut("slow"); 
   });
 
   Pace.on("hide", function () {
