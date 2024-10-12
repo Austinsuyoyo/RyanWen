@@ -1,7 +1,5 @@
 @font-face {
     font-family: 'HYXinHaiXingKaiW';
-    /* src: url('HYXinHaiXingKaiW.woff2') format('woff2'), */
-         /* url('HYXinHaiXingKaiW.woff') format('woff'); */
     src: url('HYXinHaiXingKaiW.ttf');
     font-weight: normal;
     font-style: normal;
@@ -10,8 +8,6 @@
 @font-face {
     font-family: 'pacificoregular';
     src: url('Pacifico-Regular.ttf');
-    /* src: url('pacifico-regular-webfont.woff2') format('woff2'),
-         url('pacifico-regular-webfont.woff') format('woff'); */
     font-weight: normal;
     font-style: normal;
     font-display: swap;

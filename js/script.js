@@ -221,21 +221,6 @@ $(document).ready(function () {
       });
     }
 
-    // 04.7 Reach thank you will show Install Dialog
-    //------------------------------------------------------------------------------
-    $("#thank-you").waypoint(
-      function (direction) {
-        if (direction === "down") {
-          var pwaInstall = document.getElementsByTagName("pwa-install")[0];
-          pwaInstall.showDialog();
-          // run only once
-          this.destroy();
-        }
-      },
-      {
-        offset: "80%",
-      }
-    );
   }); // END of Pace on Hide
 
   // 05. PRELOADER HEART ANIMATION (IE10 / 11)
@@ -419,3 +404,34 @@ function handleTickInit(tick) {
     tick.value = value;
   };
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const countdownElement = document.getElementById('date-countdown');
+  const weddingDate = new Date('2024-11-30T18:36:00').getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = weddingDate - now;
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    countdownElement.innerHTML = `
+      <div>${days} 天</div>
+      <div>${hours} 小時</div>
+      <div>${minutes} 分鐘</div>
+      <div>${seconds} 秒</div>
+    `;
+
+    if (difference < 0) {
+      clearInterval(timer);
+      countdownElement.innerHTML = "婚禮開始了！";
+    }
+  }
+
+  updateCountdown();
+  const timer = setInterval(updateCountdown, 1000);
+});
