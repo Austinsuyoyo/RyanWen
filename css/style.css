@@ -852,6 +852,10 @@ body {
         display: none
     }
 
+    #nav-menu.open {
+        display: block;
+    }
+
     #nav-menu {
         list-style-type: none;
         margin: 0;
