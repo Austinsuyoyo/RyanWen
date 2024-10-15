@@ -1,409 +1,333 @@
 "use strict";
 
+function smoothScroll(target, duration, offset = 0) {
+  const targetElement = document.querySelector(target);
+  if (!targetElement) return;
 
-$(document).ready(function () {
+  const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+  const startPosition = window.pageYOffset;
+  let startTime = null;
+
+  function animation(currentTime) {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const run = ease(timeElapsed, startPosition, targetPosition - startPosition, duration);
+    window.scrollTo(0, run);
+    if (timeElapsed < duration) requestAnimationFrame(animation);
+  }
+
+  function ease(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+  }
+
+  requestAnimationFrame(animation);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
   // 01. BROWSER AGENT FUNCTION
   //==================================================================================
+  function detectBrowser() {
+    const ua = window.navigator.userAgent;
+    return {
+      isChromeMobile: (device.tablet() || device.mobile()) && (ua.indexOf("Chrome") > 0 || ua.indexOf("CriOS") > 0),
+      isIOS: /iPhone|iPad|iPod/.test(ua),
+      isFirefox: ua.toLowerCase().indexOf("firefox") > -1,
+      isIE: ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident\/7\./),
+      isIE11: !!ua.match(/Trident\/7\./),
+      isIE11desktop: !!ua.match(/Trident\/7\./) && ua.indexOf("Windows Phone") < 0,
+      isIE10: ua.indexOf("MSIE 10.0") > 0,
+      isIE9: ua.indexOf("MSIE 9.0") > 0,
+      isSafari: ua.indexOf("Safari") != -1 && ua.indexOf("Mac") != -1
+    };
+  }
 
-  // 01.1 Check Chrome (Mobile / Tablet)
-  //----------------------------------------------------------------------------------
-  var isChromeMobile = function isChromeMobile() {
-    if (device.tablet() || device.mobile()) {
-      if (window.navigator.userAgent.indexOf("Chrome") > 0 || window.navigator.userAgent.indexOf("CriOS") > 0) {
-        return 1;
-      }
-    }
-  };
-
-  // 01.2 Check IOS
-  //----------------------------------------------------------------------------------
-  var isIOS = function isIOS() {
-    if (
-      window.navigator.userAgent.indexOf("iPhone") > 0 ||
-      window.navigator.userAgent.indexOf("iPad") > 0 ||
-      window.navigator.userAgent.indexOf("iPod") > 0
-    ) {
-      return 1;
-    }
-  };
-
-  // 01.3 Check FIREFOX
-  //----------------------------------------------------------------------------------
-  var is_firefox = function is_firefox() {
-    if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
-      return 1;
-    }
-  };
-
-  // 01.4 Check IE (< IE10)
-  //----------------------------------------------------------------------------------
-  var isIE = function isIE() {
-    if (window.navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident\/7\./)) {
-      return 1;
-    }
-  };
-
-  // 01.5 Check IE11
-  //----------------------------------------------------------------------------------
-  var isIE11 = function isIE11() {
-    if (!!navigator.userAgent.match(/Trident\/7\./)) {
-      return 1;
-    }
-  };
-
-  // 01.6 Check IE11 (Not Windows Phone)
-  ///----------------------------------------------------------------------------------
-  var isIE11desktop = function isIE11desktop() {
-    if (!!navigator.userAgent.match(/Trident\/7\./) && window.navigator.userAgent.indexOf("Windows Phone") < 0) {
-      return 1;
-    }
-  };
-
-  // 01.7 Check IE10
-  //----------------------------------------------------------------------------------
-  var isIE10 = function isIE10() {
-    if (window.navigator.userAgent.indexOf("MSIE 10.0") > 0) {
-      return 1;
-    }
-  };
-
-  // 01.8 Check IE9
-  //----------------------------------------------------------------------------------
-  var isIE9 = function isIE9() {
-    if (window.navigator.userAgent.indexOf("MSIE 9.0") > 0) {
-      return 1;
-    }
-  };
-
-  // 01.9 Check Safari/Chrome Mac
-  //----------------------------------------------------------------------------------
-  var isSafari = function isSafari() {
-    if (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Mac") != -1) {
-      return 1;
-    }
-  };
+  const browser = detectBrowser();
 
   // 02. FULLSCREEN CLASS
   //==================================================================================
-  var fullscreen = function () {
-    var fheight = $(window).height();
-    $(".fullscreen").css("height", fheight);
-  };
+  function fullscreen() {
+    const fheight = window.innerHeight;
+    document.querySelectorAll(".fullscreen").forEach(el => {
+      el.style.height = `${fheight}px`;
+    });
+  }
 
-  //Execute on load
   fullscreen();
-
-  //Execute on window resize
-  $(window).resize(function () {
-    fullscreen();
-  });
+  window.addEventListener('resize', fullscreen);
 
   // 03. HIDDEN ALL ANIMATION CLASS
   //==================================================================================
-  // Waypoint will animate it later (04.5 Waypoint Animate CSS)
-  if (!device.tablet() && !device.mobile() && !isIE9()) {
-    $(".animation").css({
-      visibility: "hidden",
+  if (!device.tablet() && !device.mobile() && !browser.isIE9) {
+    document.querySelectorAll(".animation").forEach(el => {
+      el.style.visibility = "hidden";
     });
   }
 
   // 04. PACE PRELOADER
   //==================================================================================
   Pace.on("done", function () {
-    $("#preloader").delay(500).fadeOut("slow"); 
+    setTimeout(() => {
+      document.getElementById("preloader").style.display = "none";
+    }, 500);
   });
 
   Pace.on("hide", function () {
-    // 04.1 Gallery - Masonry
-    //------------------------------------------------------------------------------
-    var $gallery = $("#masonry-gallery");
 
-    if (device.tablet() || device.mobile()) {
-      $gallery.masonry({
-        columnWidth: ".grid-sizer",
-        itemSelector: ".masonry-col",
-        gutter: ".gutter-sizer",
-        transitionDuration: 0,
-      });
-    } else {
-      $gallery.masonry({
-        columnWidth: ".grid-sizer",
-        itemSelector: ".masonry-col",
-        gutter: ".gutter-sizer",
-        transitionDuration: "1s",
-      });
-    }
 
     // 04.2 Nav Header Position (Mobile)
     //------------------------------------------------------------------------------
-    if (device.tablet() || device.mobile()) {
-      if ($("#nav-bar").hasClass("sticky-nav")) {
-        $("#nav-header").css("position", "relative");
-      }
+    if ((device.tablet() || device.mobile()) && document.getElementById("nav-bar").classList.contains("sticky-nav")) {
+      document.getElementById("nav-header").style.position = "relative";
     }
 
-    // 04.3 Waypoint Sticky Navbar
+    // 04.3 IntersectionObserver Sticky Navbar
     //------------------------------------------------------------------------------
-    if ($("#nav-bar").hasClass("sticky-nav")) {
-      if ($("#nav-bar").hasClass("bottom-bar")) {
-        var waypoints = $("#nav-header").waypoint(
-          function (direction) {
-            if (direction === "down") {
-              if (!device.tablet() && !device.mobile()) {
-                $("#nav-bar").addClass("stick-it animate__animated animate__fadeInDownBig");
-              } else {
-                $("#nav-bar").addClass("stick-it");
-              }
-            } else if (direction === "up") {
-              $("#nav-bar").removeClass("stick-it animate__animated animate__fadeInDownBig");
+    const navBar = document.getElementById("nav-bar");
+    if (navBar && navBar.classList.contains("sticky-nav") && navBar.classList.contains("bottom-bar")) {
+      const navHeader = document.getElementById("nav-header");
+      let lastScrollY = window.scrollY;
+      let isFirstScroll = true;
+
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const currentScrollY = window.scrollY;
+          const direction = currentScrollY > lastScrollY ? 'down' : 'up';
+
+          if (isFirstScroll && currentScrollY > navHeader.offsetTop) {
+            navBar.classList.add("stick-it");
+            isFirstScroll = false;
+          } else if (direction === 'down' && !entry.isIntersecting) {
+            if (!device.tablet() && !device.mobile()) {
+              navBar.classList.add("stick-it", "animate__animated", "animate__fadeInDownBig");
+            } else {
+              navBar.classList.add("stick-it");
             }
-          },
-          {
-            offset: "-145px",
+          } else if (direction === 'up' && entry.isIntersecting) {
+            navBar.classList.remove("stick-it", "animate__animated", "animate__fadeInDownBig");
           }
-        );
-      }
+          
+          lastScrollY = currentScrollY;
+        });
+      }, {
+        threshold: 0,
+        rootMargin: "-145px 0px 0px 0px"
+      });
+  
+      navObserver.observe(navHeader);
     }
 
-    // 04.5 Waypoint Animate CSS
+    // 04.5 IntersectionObserver Animate CSS
     //------------------------------------------------------------------------------
-    if (!device.tablet() && !device.mobile() && !isIE9()) {
-      $(document).ready(function () {
-        // Set up Waypoint to trigger at 90% offset for each .animation element
-        $(".animation").waypoint({
-          handler: function (direction) {
-            if (direction === "down" && !$(this.element).hasClass("animate__animated")) {
-              const animations = ["bounce", "fadeIn", "fadeInLeft", "fadeInRight", "fadeInUp"];
+    if (!device.tablet() && !device.mobile() && !browser.isIE9) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            const animations = ["bounce", "fadeIn", "fadeInLeft", "fadeInRight", "fadeInUp"];
+            animations.forEach(animation => {
+              if (element.classList.contains(animation)) {
+                element.classList.add("animate__animated", `animate__${animation}`);
+                element.style.visibility = "visible";
+              }
+            });
 
-              // Function to apply animation
-              const applyAnimation = (element, animation) => {
-                return new Promise((resolve) => {
-                  element
-                    .removeClass(`${animation}`)
-                    .addClass(`animate__animated animate__${animation}`)
-                    .css({ visibility: "visible" });
-                  element.on("animationend", () => {
-                    resolve();
-                  });
-                });
-              };
-
-              // Sequentially apply animations
-              const applyAnimationsSequentially = async () => {
-                for (const animation of animations) {
-                  if ($(this.element).hasClass(animation)) {
-                    await applyAnimation($(this.element), animation);
-                  }
-                }
-
-                // Additional animations after "You're Invited" animation
-                if ($(this.element).attr("id") === "welcome-text") {
-                  // Apply additional animations here
-                  await applyAnimation($("#slide-arrow-a"), "fadeIn");
-                }
-              };
-
-              applyAnimationsSequentially();
+            if (element.id === "welcome-text") {
+              setTimeout(() => {
+                document.getElementById("slide-arrow-a").classList.add("animate__animated", "animate__fadeIn");
+              }, 1000);
             }
-          },
-          offset: "120%",
+
+
+            observer.unobserve(element);
+          }
         });
+      }, {
+        threshold: 0.1 
+      });
+
+      document.querySelectorAll(".animation").forEach(el => {
+        observer.observe(el);
       });
     }
 
     // 04.6 Stellar Parallax
     //------------------------------------------------------------------------------
-    if (!device.tablet() && !device.mobile() && !isIE9() && !isIE10() && !isSafari()) {
-      $(".image-divider").css("background-attachment", "fixed");
-      $(window).stellar({
-        horizontalScrolling: false,
-        responsive: true,
-      });
+    if (!device.tablet() && !device.mobile() && !browser.isIE9 && !browser.isIE10 && !browser.isSafari) {
+      const parallaxElements = document.querySelectorAll(".image-divider");
+      let ticking = false;
+  
+      function updateParallax() {
+        const scrollY = window.pageYOffset;
+  
+        parallaxElements.forEach(el => {
+          const speed = parseFloat(el.dataset.parallaxSpeed) || 0.3;
+          const rect = el.getBoundingClientRect();
+          const elTop = rect.top + scrollY;
+          const windowHeight = window.innerHeight;
+  
+          if (scrollY + windowHeight > elTop && scrollY < elTop + rect.height) {
+            const yPos = (scrollY - elTop) * speed;
+            el.style.backgroundPosition = `center ${yPos}px`;
+          }
+        });
+  
+        ticking = false;
+      }
+  
+      function requestTick() {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }
+  
+      function onScroll() {
+        requestTick();
+      }
+  
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', updateParallax, { passive: true });
+  
+      // 初始化
+      updateParallax();
     }
-
-  }); // END of Pace on Hide
+  });
 
   // 05. PRELOADER HEART ANIMATION (IE10 / 11)
   //==================================================================================
-  if (isIE10() || isIE11()) {
-    $(".heart-animation").css("letter-spacing", "normal");
+  if (browser.isIE10 || browser.isIE11) {
+    document.querySelector(".heart-animation").style.letterSpacing = "normal";
   }
-
-  // 05. IMAGE DIVIDER (Mobile / Tablet)
-  //==================================================================================
-  /*if (device.tablet() || device.mobile() || isIE9() || isIE10() ||isSafari()) {
-		$(".image-divider").addClass("mobile");
-	}*/
 
   // 06. BIND TOUCH FOR PHOTO ITEM (Mobile / Tablet)
   //==================================================================================
-  $(".photo-item").bind("touchstart touchend", function (e) {});
+  document.querySelectorAll(".photo-item").forEach(el => {
+    el.addEventListener("touchstart", function() {});
+    el.addEventListener("touchend", function() {});
+  });
 
   // 08. MOBILE MENU
   //==================================================================================
-  $("#mobile-nav").click(function (e) {
+  document.getElementById("mobile-nav").addEventListener("click", function(e) {
     e.preventDefault();
-    $("#nav-menu").toggleClass("open");
+    document.getElementById("nav-menu").classList.toggle("open");
   });
 
-  // Hide Menu After Click It. Will be used on onepage version.
-  $("#nav-menu li a").click(function () {
-    if ($(this).attr("href") !== "#") {
-      $("#nav-menu").removeClass("open");
-    }
+  document.querySelectorAll("#nav-menu li a").forEach(el => {
+    el.addEventListener("click", function() {
+      if (this.getAttribute("href") !== "#") {
+        document.getElementById("nav-menu").classList.remove("open");
+      }
+    });
   });
-
 
   // 10. TINY SLIDER
   //==================================================================================
-  if ($(".wish-slider").length) {
-    $(".wish-slider").ajax_wishes();
+  const wishSlider = document.querySelector(".wish-slider");
+  if (wishSlider) {
+    tns({
+      container: wishSlider,
+      items: 1,
+      autoplay: true,
+      autoplayTimeout: 5000,
+      nav: false,
+      controls: false
+    });
   }
 
   // 12. SMOOTH SCROLL
   //=========================================================================
-  $("a.smooth-scroll").smoothScroll({
-    speed: 1000,
+  document.querySelectorAll('a.smooth-scroll').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = this.getAttribute('href');
+      smoothScroll(target, 300);
+    });
   });
-
-  $(".nav-smooth-scroll a").smoothScroll({
-    speed: 1000,
-    offset: -80,
-  });
-
-  // 13. MAGNIFIC POPUP
-  //==================================================================================
-
-  // 13.1 Magnific Zoom
-  //----------------------------------------------------------------------------------
-  $(".magnific-zoom").magnificPopup({
-    type: "image",
-    image: {
-      // options for image content type
-      titleSrc: "title",
-    },
-    //fixedContentPos:true,
-    callbacks: {
-      open: function () {
-        $("body").css("overflow", "hidden");
-      },
-      afterClose: function () {
-        $("body").css("overflow", "");
-      },
-    },
-  });
-
-  // 13.2 Magnific Zoom Gallery
-  //----------------------------------------------------------------------------------
-  $(".magnific-zoom-gallery").magnificPopup({
-    type: "image",
-    image: {
-      // options for image content type
-      titleSrc: "title",
-    },
-    gallery: {
-      enabled: true,
-    },
-    //fixedContentPos:true,
-    callbacks: {
-      open: function () {
-        $("body").css("overflow", "hidden");
-      },
-      afterClose: function () {
-        $("body").css("overflow", "");
-      },
-    },
+  
+  document.querySelectorAll('.nav-smooth-scroll a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = this.getAttribute('href');
+      smoothScroll(target, 300, 80);
+    });
   });
 
   // 14. DISALBE TRANSITION (Mobile / Tablet)
   //==================================================================================
   if (device.tablet() || device.mobile()) {
-    if (!isIE11desktop()) {
-      // Photo-item
-      $(".photo-item img.hover-animation").css("transition", "none");
-      $(".photo-item .layer.hover-animation").css("transition", "none");
+    if (!browser.isIE11desktop) {
+      document.querySelectorAll(".photo-item img.hover-animation, .photo-item .layer.hover-animation").forEach(el => {
+        el.style.transition = "none";
+      });
     }
   }
 
   // 15. AUDIO
   //==================================================================================
+  const audioElm = document.getElementById("audioID");
+  const muteButton = document.getElementById("mute-audio");
 
-  // 15.1 Reset Mute Control (Chrome and Safari Mobile)
-  //----------------------------------------------------------------------------------
-  //	Chrome and Safari IOS not cannot autoplay audio.
-  //	Default audio will reset to mute
-  if (isChromeMobile() || isIOS()) {
-    var audioElm = document.getElementById("audioID");
-
-    if (audioElm != null) {
+  if (audioElm && muteButton) {
+    // 15.1 Reset Mute Control (Chrome and Safari Mobile)
+    if (browser.isChromeMobile || browser.isIOS) {
       audioElm.muted = true;
-
-      var mute_icon = $("#mute-audio").data("mute-icon");
-      var unmute_icon = $("#mute-audio").data("unmute-icon");
-
-      $("#mute-audio").removeAttr("data-start").attr({ "data-start": "mute" });
-      $("#mute-audio").removeAttr("data-mute-icon").attr({ "data-mute-icon": unmute_icon });
-      $("#mute-audio").removeAttr("data-unmute-icon").attr({ "data-unmute-icon": mute_icon });
-      $("#mute-audio i").removeClass();
-      $("#mute-audio i").addClass(mute_icon);
+      const muteIcon = muteButton.dataset.muteIcon;
+      const unmuteIcon = muteButton.dataset.unmuteIcon;
+      muteButton.dataset.start = "mute";
+      muteButton.dataset.muteIcon = unmuteIcon;
+      muteButton.dataset.unmuteIcon = muteIcon;
+      muteButton.querySelector("i").className = muteIcon;
     }
+
+    // 15.2 On toggle mute button
+    muteButton.addEventListener("click", function(e) {
+      e.preventDefault();
+      const onStart = this.dataset.start;
+      const muteIcon = this.dataset.muteIcon;
+      const unmuteIcon = this.dataset.unmuteIcon;
+      const iconElement = this.querySelector("i");
+
+      if (onStart === "unmute") {
+        if (iconElement.classList.contains(unmuteIcon)) {
+          iconElement.classList.remove(unmuteIcon);
+          iconElement.classList.add(muteIcon);
+          if (browser.isIOS) {
+            audioElm.pause();
+          } else {
+            audioElm.muted = true;
+          }
+        } else {
+          iconElement.classList.remove(muteIcon);
+          iconElement.classList.add(unmuteIcon);
+          audioElm.play();
+          audioElm.muted = false;
+        }
+      } else if (onStart === "mute") {
+        if (iconElement.classList.contains(muteIcon)) {
+          iconElement.classList.remove(muteIcon);
+          iconElement.classList.add(unmuteIcon);
+          audioElm.play();
+          audioElm.muted = false;
+        } else {
+          iconElement.classList.remove(unmuteIcon);
+          iconElement.classList.add(muteIcon);
+          if (browser.isIOS) {
+            audioElm.pause();
+          } else {
+            audioElm.muted = true;
+          }
+        }
+      }
+    });
   }
-
-  // 15.2 On toggle mute button
-  //----------------------------------------------------------------------------------
-  $("#mute-audio").click(function (e) {
-    e.preventDefault();
-    var audioElm = document.getElementById("audioID");
-
-    var on_start = $(this).data("start");
-    var mute_icon = $(this).data("mute-icon");
-    var unmute_icon = $(this).data("unmute-icon");
-
-    if (on_start == "unmute") {
-      if ($("#mute-audio i").hasClass(unmute_icon)) {
-        $("#mute-audio i").removeClass(unmute_icon);
-        $("#mute-audio i").addClass(mute_icon);
-        if (isIOS()) {
-          //Because of IOS cannot mute by script, then change it to pause.
-          audioElm.pause();
-        } else {
-          audioElm.muted = true;
-        }
-      } else {
-        $("#mute-audio i").removeClass(mute_icon);
-        $("#mute-audio i").addClass(unmute_icon);
-        audioElm.play();
-        audioElm.muted = false;
-      }
-    } else if (on_start == "mute") {
-      if ($("#mute-audio i").hasClass(mute_icon)) {
-        $("#mute-audio i").removeClass(mute_icon);
-        $("#mute-audio i").addClass(unmute_icon);
-        audioElm.play();
-        audioElm.muted = false;
-      } else {
-        $("#mute-audio i").removeClass(unmute_icon);
-        $("#mute-audio i").addClass(mute_icon);
-        if (isIOS()) {
-          //Because of IOS cannot mute by script, then change it to pause.
-          audioElm.pause();
-        } else {
-          audioElm.muted = true;
-        }
-      }
-    }
-  });
 });
 
 // 07. COUNTDOWN
 //===================================================================================
-function handleTickInit(tick) {
-  var counter = Tick.count.down("2024-11-30T12:00:00+08:00", { format: ["d", "h", "m", "s"] });
-
-  counter.onupdate = function (value) {
-    tick.value = value;
-  };
-}
 
 
 document.addEventListener('DOMContentLoaded', function() {

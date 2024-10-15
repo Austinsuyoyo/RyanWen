@@ -26,19 +26,18 @@
   <meta name="theme-color" content="#e4b4ae" />
   <!-- Bootstrap -->
   <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" type="text/css" media="screen" />
-  <!-- Pace -->
+  <!-- Preloader -->
   <link rel="stylesheet" href="css/preloader.css" media="screen" />
-  <link rel="stylesheet" href="css/preloader-default.css" media="screen" />
   <!-- Animate -->
-  <link rel="stylesheet" href="css/animate/animate.uncss.css" type="text/css" />
-  <!-- Magnific Popup -->
-  <link rel="stylesheet" href="css/magnific-popup/magnific-popup.css" type="text/css" />
+  <link rel="stylesheet" href="css/animate/animate.min.css" type="text/css" />
+  <!-- PhotoSwipe -->
+  <link rel="stylesheet" href="css/photoswipe/photoswipe.css">
   <!-- Icon -->
   <link href="css/fontawesome/fontawesome.min.css" rel="stylesheet" />
   <!-- Font -->
   <link href="css/fonts/fonts.css" rel="stylesheet" type="text/css" />
   <!-- Theme CSS -->
-  <link href="css/style.uncss.css" rel="stylesheet" media="screen" />
+  <link href="css/style.css" rel="stylesheet" media="screen" />
 </head>
 
 <body class="outside-bottom-bar-page">
@@ -47,20 +46,20 @@
       id="vertical-line"
       style="position: fixed; top: 0; bottom: 0; left: 50%; width: 1px; background-color: red; z-index: 9999"
     ></div> -->
-    <!--PRELOADER-->
-    <div id="preloader">
-      <div class="alignment">
-          <div class="v-align center-middle">
-              <div class="preloader-container">
-                  <i class="basketball-icon fa-solid fa-basketball fa-3x"></i>
-              </div>
-              <div class="loading-text">
-                  Loading<span class="loading-dots"></span>
-              </div>
-          </div>
+  <!--PRELOADER-->
+  <div id="preloader">
+    <div class="alignment">
+      <div class="v-align center-middle">
+        <div class="preloader-container">
+          <i class="basketball-icon fa-solid fa-basketball fa-3x"></i>
+        </div>
+        <div class="loading-text">
+          Loading<span class="loading-dots"></span>
+        </div>
       </div>
+    </div>
   </div>
-    <!--END of PRELOADER-->
+  <!--END of PRELOADER-->
 
   <!-- MAIN SLIDER -->
   <section id="main-slider" class="fullscreen">
@@ -179,7 +178,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/him.webp" class="magnific-zoom" aria-label="Groom Photo">
+                    <!-- open PhotoSwipe for couple photos -->
+                    <a href="#" class="open-couple" data-index="0" aria-label="Groom Photo">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -202,6 +202,7 @@
               <h2 class="text-center">
                 <span class="last-name">&nbsp;駿宏&nbsp;</span>
               </h2>
+              <p class="text-center"> 新郎</p>
               <div class="heart-wrapper">
                 <div class="de-icon circle medium-size custom-heart">
                   <i class="fa-solid fa-heart" style="color: #fff"></i>
@@ -224,7 +225,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/her.webp" class="magnific-zoom" aria-label="Bride Photo">
+                    <!-- open PhotoSwipe -->
+                    <a href="#" class="open-photoswipe" data-index="1" aria-label="Bride Photo">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -247,6 +249,7 @@
               <h2 class="text-center">
                 <span class="last-name">&nbsp;懿文&nbsp;</span>
               </h2>
+              <p class="text-center"> 新娘</p>
             </div>
           </div>
         </div>
@@ -256,7 +259,7 @@
     <!-- PHOTO DIVIDER -->
     <section id="photo-divider-1">
       <div class="image-divider fixed-height lazy" style="height: 500px" data-bg="images/divider-1.webp"
-        data-stellar-background-ratio="0.3" id="divider-1"></div>
+        data-parallax-speed="0.5" id="divider-1"></div>
     </section>
 
     <!-- WHERE WHEN SECTION -->
@@ -298,8 +301,8 @@
                   地址：高雄市左營區文上路5號
                 </p>
               </div>
-              <iframe id="taichung-wedding-map" class="lazy" title="Taichung Wedding Map"
-                data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14563.52622319583!2d120.6530752!3d24.1407974!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693dbb3dfb5a27%3A0xe45f79db1129c54f!2z6Z2e5bi45qOn5ama56au5pyD6aSo!5e0!3m2!1szh-TW!2stw!4v1701746280285!5m2!1szh-TW!2stw"></iframe>
+              <iframe id="kaohsiung-wedding-map" class="lazy" title="Kaohsiung Wedding Map"
+                data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14726.080354375512!2d120.3009235!3d22.6716751!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0508e474f521%3A0x63396ad7bb5f842a!2z5beo6JuL5paH5bCa5pyD6aSo!5e0!3m2!1szh-TW!2stw!4v1701747393025!5m2!1szh-TW!2stw"></iframe>
             </div>
           </div>
         </div>
@@ -310,7 +313,7 @@
     <!-- PHOTO DIVIDER -->
     <section id="photo-divider-2">
       <div class="image-divider fixed-height lazy" style="height: 500px" data-bg="images/divider-2.webp"
-        data-stellar-background-ratio="0.3" loading="lazy"></div>
+        data-parallax-speed="0.5" loading="lazy"></div>
     </section>
 
     <!-- GALLERY SECTION -->
@@ -349,7 +352,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-1-lg.webp" class="magnific-zoom-gallery" title="Gallery 1">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="0" aria-label="Gallery 1">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -378,7 +382,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-2-lg.webp" class="magnific-zoom-gallery" title="Gallery 2">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="1" aria-label="Gallery 2">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -407,7 +412,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-3-lg.webp" class="magnific-zoom-gallery" title="Gallery 3">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="2" aria-label="Gallery 3">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -436,7 +442,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-4-lg.webp" class="magnific-zoom-gallery" title="Gallery 4">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="3" aria-label="Gallery 4">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -465,7 +472,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-5-lg.webp" class="magnific-zoom-gallery" title="Gallery 5">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="4" aria-label="Gallery 5">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -494,7 +502,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-6-lg.webp" class="magnific-zoom-gallery" title="Gallery 6">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="5" aria-label="Gallery 6">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -523,7 +532,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-7-lg.webp" class="magnific-zoom-gallery" title="Gallery 7">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="6" aria-label="Gallery 7">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -552,7 +562,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-8-lg.webp" class="magnific-zoom-gallery" title="Gallery 8">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="7" aria-label="Gallery 8">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -581,7 +592,8 @@
               <div class="layer wh100 hidden-link hover-animation animate__delay-05s fade-in">
                 <div class="alignment">
                   <div class="v-align center-middle">
-                    <a href="images/gallery-9-lg.webp" class="magnific-zoom-gallery" title="Gallery 9">
+                    <!-- open PhotoSwipe for gallery -->
+                    <a href="#" class="open-gallery" data-index="8" aria-label="Gallery 9">
                       <div class="de-icon circle light medium-size inline">
                         <i class="fa-solid fa-plus"></i>
                       </div>
@@ -692,8 +704,6 @@
       </div>
     </footer>
 
-    <!-- jQuery -->
-    <script src="js/jquery-1.12.4.min.js"></script>
     <!-- Pace -->
     <script src="js/pace/pace.min.js"></script>
     <!-- Bootstrap -->
@@ -702,22 +712,6 @@
     <script src="js/modernizr/modernizr.js"></script>
     <!-- Device JS -->
     <script src="js/devicejs/device.js"></script>
-    <!-- TinyNav -->
-    <script src="js/tinynav/tinynav.min.js"></script>
-    <!-- SmoothScroll -->
-    <script src="js/smoothscroll/jquery.smooth-scroll.js"></script>
-    <!-- Sticky -->
-    <script src="js/sticky/jquery.sticky.js"></script>
-    <!-- Waypoint -->
-    <script src="js/waypoint/jquery.waypoints.min.js"></script>
-    <!-- Vide -->
-    <script src="js/vide/jquery.vide.js"></script>
-    <!-- Stellar -->
-    <script src="js/stellar/jquery.stellar.js"></script>
-    <!-- Masonry -->
-    <script src="js/masonry/masonry.pkgd.min.js"></script>
-    <!-- Magnific Popup -->
-    <script src="js/magnific-popup/jquery.magnific-popup.min.js"></script>
     <!-- Wishes -->
     <script src="js/wishes/wishes.js"></script>
     <!-- Lazyload -->
@@ -731,32 +725,107 @@
     <script async src="js/lazyload/lazyload.min.js"></script>
     <!-- Custom Core Script -->
     <script type="text/javascript" src="js/script.js"></script>
-    <!-- Fix jQuery - Use passive listeners to improve scrolling performance -->
-    <script>
-      jQuery.event.special.touchstart = {
-        setup: function (_, ns, handle) {
-          this.addEventListener("touchstart", handle, {
-            passive: !ns.includes("noPreventDefault"),
-          });
-        },
+    <!-- PhotoSwipe -->
+    <script type="module">
+      import PhotoSwipe from './js/photoswipe/photoswipe.esm.min.js';
+
+      const CoupleOptions = {
+        dataSource: [
+          {
+            src: 'images/him.webp',
+            width: 1333,
+            height: 2000,
+            alt: 'Groom Photo'
+          },
+          {
+            src: 'images/her.webp',
+            width: 1333,
+            height: 2000,
+            alt: 'Bride Photo'
+          },
+        ],
+        showHideAnimationType: 'none'
       };
-      jQuery.event.special.touchmove = {
-        setup: function (_, ns, handle) {
-          this.addEventListener("touchmove", handle, {
-            passive: !ns.includes("noPreventDefault"),
-          });
-        },
+
+      const GalleryOptions = {
+        dataSource: [
+          {
+            src: 'images/gallery-1-lg.webp',
+            width: 800,
+            height: 1200,
+            alt: 'Gallery 1'
+          },
+          {
+            src: 'images/gallery-2-lg.webp',
+            width: 1200,
+            height: 800,
+            alt: 'Gallery 2'
+          },
+          {
+            src: 'images/gallery-3-lg.webp',
+            width: 800,
+            height: 1200,
+            alt: 'Gallery 3'
+          },
+          {
+            src: 'images/gallery-4-lg.webp',
+            width: 800,
+            height: 1200,
+            alt: 'Gallery 4'
+          },
+          {
+            src: 'images/gallery-5-lg.webp',
+            width: 800,
+            height: 1200,
+            alt: 'Gallery 5'
+          },
+          {
+            src: 'images/gallery-6-lg.webp',
+            width: 800,
+            height: 1200,
+            alt: 'Gallery 6'
+          },
+          {
+            src: 'images/gallery-7-lg.webp',
+            width: 800,
+            height: 1200,
+            alt: 'Gallery 7'
+          },
+          {
+            src: 'images/gallery-8-lg.webp',
+            width: 800,
+            height: 1200,
+            alt: 'Gallery 8'
+          },
+          {
+            src: 'images/gallery-9-lg.webp',
+            width: 800,
+            height: 1200,
+            alt: 'Gallery 9'
+          }
+        ],
+        showHideAnimationType: 'none'
       };
-      jQuery.event.special.wheel = {
-        setup: function (_, ns, handle) {
-          this.addEventListener("wheel", handle, { passive: true });
-        },
-      };
-      jQuery.event.special.mousewheel = {
-        setup: function (_, ns, handle) {
-          this.addEventListener("mousewheel", handle, { passive: true });
-        },
-      };
+
+      document.querySelectorAll('.open-couple').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const index = parseInt(e.currentTarget.getAttribute('data-index'), 10);
+          CoupleOptions.index = index;
+          const pswp = new PhotoSwipe(CoupleOptions);
+          pswp.init();
+        });
+      });
+
+      document.querySelectorAll('.open-gallery').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const index = parseInt(e.currentTarget.getAttribute('data-index'), 10);
+          GalleryOptions.index = index;
+          const pswp = new PhotoSwipe(GalleryOptions);
+          pswp.init();
+        });
+      });
     </script>
 </body>
 
