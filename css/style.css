@@ -275,13 +275,6 @@ a:hover {
     color: #FFF;
 }
 
-#slide-arrow {
-    position: absolute;
-    left: 50%;
-    bottom: calc(10vh + 10px);
-    transform: translateX(-50%);
-}
-
 #slide-arrow a {
     color: #FFF;
     font-size: 25px;
