@@ -171,7 +171,7 @@ a:hover {
 }
 
 #nav-menu>li a:hover {
-    color: #f0394d;
+    color: #db262a;
 }
 
 #mobile-nav {
@@ -189,7 +189,7 @@ a:hover {
     width: 100%;
     height: 100%;
     border-radius: 0%;
-    background-color: #f0394d;
+    background-color: #db262a;
     color: #FFF;
     text-align: center;
     transition: transform 0.3s ease;
@@ -360,7 +360,7 @@ a:hover {
 }
 
 .pink-heart {
-    color: #f0394d;
+    color: #db262a;
     font-size: 18px;
     position: relative;
     margin-left: 0.2em;
@@ -453,7 +453,7 @@ a:hover {
 }
 
 a:hover .de-icon.circle {
-    background-color: #f0394d;
+    background-color: #db262a;
     color: #FFF;
     border: none;
 }
@@ -618,7 +618,7 @@ footer .image-divider.fixed-height {
 }
 
 .his-her-name .custom-heart {
-    background-color: #f0394d;
+    background-color: #db262a;
     width: 65px;
     height: 65px;
     line-height: 65px;
@@ -895,7 +895,7 @@ body {
     }
 
     #nav-menu li a:hover {
-        background-color: #f0394d;
+        background-color: #db262a;
         color: #FFF;
     }
 
