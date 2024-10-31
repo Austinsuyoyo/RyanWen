@@ -191,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', updateParallax, { passive: true });
   
-      // 初始化
       updateParallax();
     }
   });
@@ -201,13 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
   if (browser.isIE10 || browser.isIE11) {
     document.querySelector(".heart-animation").style.letterSpacing = "normal";
   }
-
-  // 06. BIND TOUCH FOR PHOTO ITEM (Mobile / Tablet)
-  //==================================================================================
-  document.querySelectorAll(".photo-item").forEach(el => {
-    el.addEventListener("touchstart", function() {});
-    el.addEventListener("touchend", function() {});
-  });
 
   // 08. MOBILE MENU
   //==================================================================================

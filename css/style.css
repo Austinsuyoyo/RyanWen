@@ -385,6 +385,11 @@ a:hover {
     text-align: center
 }
 
+.banner-text h1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .banner-text.medium {
     padding: 2px 10%;
 }
