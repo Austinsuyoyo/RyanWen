@@ -39,7 +39,7 @@
       const wish = wishes[currentIndex];
       wishesContainer.innerHTML = `
         <div class="w-100 px-3">
-          <div class="bg-white p-4 rounded shadow-sm text-center animate__animated animate__fadeIn">
+          <div class="bg-white p-4 rounded text-center animate__animated animate__fadeIn">
             <p class="mb-3">"${wish.message}"</p>
             <p class="fw-bold mb-0">- ${wish.name}</p>
           </div>

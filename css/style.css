@@ -1193,3 +1193,25 @@ body {
     font-weight: bold;
     font-size: 20px;
 }
+
+#wishes-container .wish-card {
+    height: 180px; 
+    overflow-y: auto;
+  }
+  
+  #wishes-container .wish-card::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  #wishes-container .wish-card::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  #wishes-container .wish-card::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+  
+  #wishes-container .wish-card::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
