@@ -16,8 +16,6 @@
   <meta name="twitter:card" content="summary" />
   <!-- Bootstrap -->
   <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" type="text/css" media="screen" />
-  <!-- Font -->
-  <link href="fonts/fonts.css" rel="stylesheet" type="text/css" />
   <!-- Preloader -->
   <link rel="stylesheet" href="css/preloader.css" media="screen" />
   <!-- Animate -->
@@ -26,6 +24,8 @@
   <link rel="stylesheet" href="css/photoswipe/photoswipe.css">
   <!-- Icon -->
   <link href="css/fontawesome/fontawesome.min.css" rel="stylesheet" />
+  <!-- Font -->
+  <link href="css/fonts/fonts.css" rel="stylesheet" type="text/css" />
   <!-- Theme CSS -->
   <link href="css/style.css" rel="stylesheet" media="screen" />
 </head>
@@ -59,7 +59,7 @@
       <div class="slide-title-inner-wrapper">
         <!-- TITLE 2 -->
         <div class="slide-title">
-          <div class="container" style="padding-top: 60vh; text-align: center;">
+          <div class="container" style="padding-top: 50vh; text-align: center;">
             <div class="row justify-content-center">
               <div id="welcome-text" class="col-md-12 animation animate__delay-05s fadeInUp">
                 <div id="invited">You're Invited</div>
@@ -70,10 +70,10 @@
               </div>
             </div>
             <div class="row justify-content-center">
-              <div id="slide-arrow" class="col-12 animation animate__delay-1s fadeInUp">
-                <div class="animate__animated animate__slideOutDown animate__fast animate__infinite">
+              <div id="slide-arrow" class="col-12 mt-5 animation animate__delay-1s fadeInUp">
+                <div class="animate__animated animate__bounce animate__slow animate__infinite">
                   <a href="#content" class="smooth-scroll" aria-label="Down Arrow" id="slide-arrow-a">
-                    <i class="fa-solid fa-caret-down fa-2x" style="color: #ffffff"></i>
+                    <i class="fa-solid fa-caret-down" style="color: #ffffff"></i>
                   </a>
                 </div>
               </div>
@@ -667,6 +667,7 @@
       <div class="image-divider fixed-height lazy" data-bg="images/footer.webp" loading="lazy">
         <div class="divider-overlay"></div>
 
+        <!-- Use Center Middle Alignment to align middle the content for fixed-height parallax -->
         <div class="alignment">
           <div class="v-align center-middle">
             <div class="container">
