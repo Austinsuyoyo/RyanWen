@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }, {
         threshold: 0,
-        rootMargin: "-145px 0px 0px 0px"
       });
   
       navObserver.observe(navHeader);
