@@ -380,8 +380,8 @@ a:hover {
     display: inline-block;
     font-family: sans-serif;
     margin: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    /* margin-top: 30px;
+    margin-bottom: 30px; */
     text-align: center
 }
 
@@ -1192,4 +1192,17 @@ body {
     color: #0050B3;
     font-weight: bold;
     font-size: 20px;
+}
+
+.fullscreen {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+/* For mobile browsers */
+@supports (-webkit-touch-callout: none) {
+.fullscreen {
+    height: -webkit-fill-available;
+}
 }
